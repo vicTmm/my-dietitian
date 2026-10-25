@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-25T04:07:31.331133+00:00",
+  "title": "Design System: Base",
+  "extensions": {
+    "colorMeta": {
+      "navy": {
+        "role": "primary",
+        "displayName": "Club Navy",
+        "tonalRamp": [
+          "oklch(15% 0.05 258)",
+          "oklch(26% 0.05 258)",
+          "oklch(37% 0.05 258)",
+          "oklch(48% 0.05 258)",
+          "oklch(60% 0.05 258)",
+          "oklch(72% 0.05 258)",
+          "oklch(84% 0.05 258)",
+          "oklch(95% 0.05 258)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Action Blue",
+        "tonalRamp": [
+          "oklch(15% 0.12 258)",
+          "oklch(26% 0.12 258)",
+          "oklch(37% 0.12 258)",
+          "oklch(48% 0.12 258)",
+          "oklch(60% 0.12 258)",
+          "oklch(72% 0.12 258)",
+          "oklch(84% 0.12 258)",
+          "oklch(95% 0.12 258)"
+        ]
+      },
+      "yellow": {
+        "role": "secondary",
+        "displayName": "Matchday Yellow",
+        "tonalRamp": [
+          "oklch(15% 0.12 89)",
+          "oklch(26% 0.12 89)",
+          "oklch(37% 0.12 89)",
+          "oklch(48% 0.12 89)",
+          "oklch(60% 0.12 89)",
+          "oklch(72% 0.12 89)",
+          "oklch(84% 0.12 89)",
+          "oklch(95% 0.12 89)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Cool Ground",
+        "tonalRamp": [
+          "oklch(15% 0.005 260)",
+          "oklch(26% 0.005 260)",
+          "oklch(37% 0.005 260)",
+          "oklch(48% 0.005 260)",
+          "oklch(60% 0.005 260)",
+          "oklch(72% 0.005 260)",
+          "oklch(84% 0.005 260)",
+          "oklch(95% 0.005 260)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White Work Surface",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Reading Ink",
+        "tonalRamp": [
+          "oklch(15% 0.04 255)",
+          "oklch(26% 0.04 255)",
+          "oklch(37% 0.04 255)",
+          "oklch(48% 0.04 255)",
+          "oklch(60% 0.04 255)",
+          "oklch(72% 0.04 255)",
+          "oklch(84% 0.04 255)",
+          "oklch(95% 0.04 255)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Slate Secondary",
+        "tonalRamp": [
+          "oklch(15% 0.025 255)",
+          "oklch(26% 0.025 255)",
+          "oklch(37% 0.025 255)",
+          "oklch(48% 0.025 255)",
+          "oklch(60% 0.025 255)",
+          "oklch(72% 0.025 255)",
+          "oklch(84% 0.025 255)",
+          "oklch(95% 0.025 255)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Fine Rule",
+        "tonalRamp": [
+          "oklch(15% 0.01 255)",
+          "oklch(26% 0.01 255)",
+          "oklch(37% 0.01 255)",
+          "oklch(48% 0.01 255)",
+          "oklch(60% 0.01 255)",
+          "oklch(72% 0.01 255)",
+          "oklch(84% 0.01 255)",
+          "oklch(95% 0.01 255)"
+        ]
+      },
+      "soft-blue": {
+        "role": "neutral",
+        "displayName": "Soft Blue",
+        "tonalRamp": [
+          "oklch(15% 0.015 255)",
+          "oklch(26% 0.015 255)",
+          "oklch(37% 0.015 255)",
+          "oklch(48% 0.015 255)",
+          "oklch(60% 0.015 255)",
+          "oklch(72% 0.015 255)",
+          "oklch(84% 0.015 255)",
+          "oklch(95% 0.015 255)"
+        ]
+      },
+      "success-ground": {
+        "role": "tertiary",
+        "displayName": "Quiet Green Ground",
+        "tonalRamp": [
+          "oklch(15% 0.02 155)",
+          "oklch(26% 0.02 155)",
+          "oklch(37% 0.02 155)",
+          "oklch(48% 0.02 155)",
+          "oklch(60% 0.02 155)",
+          "oklch(72% 0.02 155)",
+          "oklch(84% 0.02 155)",
+          "oklch(95% 0.02 155)"
+        ]
+      },
+      "success-ink": {
+        "role": "tertiary",
+        "displayName": "Quiet Green Ink",
+        "tonalRamp": [
+          "oklch(15% 0.06 155)",
+          "oklch(26% 0.06 155)",
+          "oklch(37% 0.06 155)",
+          "oklch(48% 0.06 155)",
+          "oklch(60% 0.06 155)",
+          "oklch(72% 0.06 155)",
+          "oklch(84% 0.06 155)",
+          "oklch(95% 0.06 155)"
+        ]
+      },
+      "danger-ground": {
+        "role": "tertiary",
+        "displayName": "Soft Red Ground",
+        "tonalRamp": [
+          "oklch(15% 0.02 15)",
+          "oklch(26% 0.02 15)",
+          "oklch(37% 0.02 15)",
+          "oklch(48% 0.02 15)",
+          "oklch(60% 0.02 15)",
+          "oklch(72% 0.02 15)",
+          "oklch(84% 0.02 15)",
+          "oklch(95% 0.02 15)"
+        ]
+      },
+      "danger-ink": {
+        "role": "tertiary",
+        "displayName": "Soft Red Ink",
+        "tonalRamp": [
+          "oklch(15% 0.12 15)",
+          "oklch(26% 0.12 15)",
+          "oklch(37% 0.12 15)",
+          "oklch(48% 0.12 15)",
+          "oklch(60% 0.12 15)",
+          "oklch(72% 0.12 15)",
+          "oklch(84% 0.12 15)",
+          "oklch(95% 0.12 15)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Membership Display",
+        "purpose": "Banner headline."
+      },
+      "headline": {
+        "displayName": "Page Headline",
+        "purpose": "Page title."
+      },
+      "title": {
+        "displayName": "Section Title",
+        "purpose": "Task groups."
+      },
+      "body": {
+        "displayName": "Reading Body",
+        "purpose": "Operational descriptions."
+      },
+      "label": {
+        "displayName": "Action Label",
+        "purpose": "Labeled controls."
+      }
+    },
+    "shadows": [
+      {
+        "name": "toast",
+        "value": "0 7px 28px #102c592b",
+        "purpose": "Transient status feedback."
+      },
+      {
+        "name": "dialog",
+        "value": "0 20px 80px #06162e40",
+        "purpose": "Focused editor overlay."
+      }
+    ],
+    "motion": [
+      {
+        "name": "page-entrance",
+        "value": "fade-in .3s ease-out",
+        "purpose": "Brief visible-to-visible page entrance."
+      },
+      {
+        "name": "state-color",
+        "value": "background .18s, color .18s",
+        "purpose": "Button hover states."
+      },
+      {
+        "name": "progress",
+        "value": "width .4s ease-out",
+        "purpose": "Progress value change."
+      },
+      {
+        "name": "focus-outline",
+        "value": "3px solid #5889cf; outline-offset: 3px",
+        "purpose": "Visible keyboard focus."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1500px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1200px"
+      },
+      {
+        "name": "stacked",
+        "value": "1000px"
+      },
+      {
+        "name": "mobile-drawer",
+        "value": "760px"
+      },
+      {
+        "name": "narrow-mobile",
+        "value": "440px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Compact labeled action with hover and visible keyboard focus.",
+      "html": "<button class=\"ds-control ds-button\">Salvar alterações</button>",
+      "css": ".ds-control{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;line-height:1.3;cursor:pointer}.ds-button{background:var(--navy, #102c59);color:#fff;border:none;border-radius:8px;min-height:40px;padding:10px 16px;transition:background .18s,color .18s}.ds-button:hover{background:#234b82}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-control:focus-visible{outline:3px solid #5889cf;outline-offset:3px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Compact labeled action with hover and visible keyboard focus.",
+      "html": "<button class=\"ds-control ds-button\">Salvar alterações</button>",
+      "css": ".ds-control{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;line-height:1.3;cursor:pointer}.ds-button{background:#fff;color:#172a43;border:1px solid #d9e0e8;border-radius:8px;min-height:40px;padding:10px 16px;transition:background .18s,color .18s}.ds-button:hover{background:#f1f4f9}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-control:focus-visible{outline:3px solid #5889cf;outline-offset:3px}"
+    },
+    {
+      "name": "Yellow Button",
+      "kind": "button",
+      "refersTo": "button-yellow",
+      "description": "Compact labeled action with hover and visible keyboard focus.",
+      "html": "<button class=\"ds-control ds-button\">Salvar alterações</button>",
+      "css": ".ds-control{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;line-height:1.3;cursor:pointer}.ds-button{background:var(--yellow, #f5c841);color:var(--navy, #102c59);border:none;border-radius:8px;min-height:40px;padding:10px 16px;transition:background .18s,color .18s}.ds-button:hover{background:#ffdc66}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-control:focus-visible{outline:3px solid #5889cf;outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Compact labeled action with hover and visible keyboard focus.",
+      "html": "<button class=\"ds-control ds-button\">Salvar alterações</button>",
+      "css": ".ds-control{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;line-height:1.3;cursor:pointer}.ds-button{background:transparent;color:#172a43;border:none;border-radius:8px;min-height:40px;padding:10px 16px;transition:background .18s,color .18s}.ds-button:hover{background:#eaf0f8}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-control:focus-visible{outline:3px solid #5889cf;outline-offset:3px}"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Compact labeled action with hover and visible keyboard focus.",
+      "html": "<button class=\"ds-control ds-button\">Salvar alterações</button>",
+      "css": ".ds-control{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;line-height:1.3;cursor:pointer}.ds-button{background:#fbecef;color:#ad3541;border:none;border-radius:8px;min-height:40px;padding:10px 16px;transition:background .18s,color .18s}.ds-button:hover{background:#fbecef}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-control:focus-visible{outline:3px solid #5889cf;outline-offset:3px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Labeled white field with a fine stroke.",
+      "html": "<label class=\"ds-label\">Nome do plano<input class=\"ds-control ds-input\" placeholder=\"Meu plano de base\"></label>",
+      "css": ".ds-control{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;line-height:1.3;cursor:pointer}.ds-label{display:flex;flex-direction:column;gap:8px;font:700 11px Manrope,sans-serif;color:#172a43}.ds-input{font-weight:400;background:#fff;color:var(--navy, #102c59);border:1px solid #d9e1ea;border-radius:7px;padding:11px 12px}.ds-input::placeholder{color:#7a8696}.ds-control:focus-visible{outline:3px solid #5889cf;outline-offset:3px}"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "description": "Active rail destination with a yellow icon and pale navy selection.",
+      "html": "<nav class=\"ds-nav\"><button class=\"ds-control ds-nav-item\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z\"/></svg>Visão geral</button></nav>",
+      "css": ".ds-control{font-family:Manrope,sans-serif;font-size:12px;font-weight:700;line-height:1.3;cursor:pointer}.ds-nav{background:var(--navy, #102c59);padding:18px;width:196px}.ds-nav-item{display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;min-height:45px;border:0;border-radius:7px;text-align:left;background:#28476e;color:#fff}.ds-nav-item svg{color:var(--yellow, #f5c841)}.ds-nav-item:hover{background:#1d3c68}.ds-control:focus-visible{outline:3px solid #5889cf;outline-offset:3px}"
+    },
+    {
+      "name": "Plan Status Tag",
+      "kind": "chip",
+      "description": "Calm contextual status for a planned meal.",
+      "html": "<span class=\"ds-tag\">No seu plano</span>",
+      "css": ".ds-tag{display:inline-flex;font:800 10px/1.3 Manrope,sans-serif;white-space:nowrap;border-radius:5px;padding:5px 8px;color:#36745d;background:#eaf4ed}"
+    },
+    {
+      "name": "Work Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Flat white grouping for a distinct task.",
+      "html": "<section class=\"ds-panel\"><h2>Minha rotina</h2><p>Um dia de cada vez.</p></section>",
+      "css": ".ds-panel{font-family:Manrope,sans-serif;background:#fff;color:#172a43;border:1px solid var(--line,#e5e9ef);border-radius:12px;padding:24px}.ds-panel h2{font-size:17px;letter-spacing:-.4px;font-weight:800;margin:0}.ds-panel p{font-size:12px;line-height:1.7;color:var(--muted,#637083);margin:8px 0 0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Club member editorial",
+    "overview": "Base combinesthe navy, yellow and white requested by the user with the familiarity of a personal planning application. The identity feels calm and assured: a substantial navy navigation rail, clear white work surfaces, compact lists and warm yellow moments of recognition. Gaming affinity appears through ranks and earned progress, while the controls remain familiar web controls.\n\nExpression comes from color, Manrope's rounded letterforms and restrained membership details. Food photography is illustrative and served locally. This system describes the implemented MVP, rather than an independent visual proposal.",
+    "keyCharacteristics": [
+      "Navy anchors the shell and primary actions.",
+      "Yellow marks selected moments and earned progress.",
+      "White work surfaces use fine borders rather than ambient shadows.",
+      "Dense information uses aligned rows and consistent units."
+    ],
+    "rules": [
+      {
+        "name": "The Navy Anchor Rule",
+        "body": "Navigation and major actions share navy; color changes communicate state rather than a separate visual theme for each page.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Use Manrope weight and scale to establish hierarchy; preserve a single voice across planning, habits and progress.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Work Surface Rule",
+        "body": "Persistent planning surfaces use borders or tonal separation; reserve shadows for temporary overlays.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the navy, yellow and white brand commitment.",
+      "Do keep standard web navigation, checkboxes, buttons and forms recognizable.",
+      "Do align numeric values with their units and label planned nutrition clearly.",
+      "Do preserve visible keyboard focus and reduced-motion support."
+    ],
+    "donts": [
+      "Don't replace the club palette with a generic gradient theme.",
+      "Don't use decorative glyphs in place of the Lucide icon system.",
+      "Don't turn a row-based planning task into a grid of interchangeable promotional cards."
+    ]
+  }
+}
