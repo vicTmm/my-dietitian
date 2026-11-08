@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import {
   ArrowDownToLine,
@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Clock3,
   Droplets,
+  Dumbbell,
   Flame,
   House,
   Leaf,
@@ -39,6 +40,9 @@ import {
   createProfile,
   emptyDay,
   generateGroceries,
+  mealForDay,
+  todayIndex,
+  weekDayNames,
   localDate,
   totals,
   weekDates,
@@ -46,21 +50,35 @@ import {
 import type { Day, Meal, Profile, Supplement } from "./lib/data";
 import { download, readDatabase, writeDatabase } from "./lib/storage";
 import { supabase } from "./lib/supabase";
+const Training = lazy(() => import("./features/training/Training"));
 type Page =
+  | "training"
   | "today"
   | "plan"
   | "groceries"
   | "routine"
   | "progress"
   | "settings";
-const navigation = [
-  { id: "today", label: "Visão geral", icon: House },
-  { id: "plan", label: "Plano alimentar", icon: Utensils },
-  { id: "groceries", label: "Lista de compras", icon: ShoppingBasket },
-  { id: "routine", label: "Minha rotina", icon: Sun },
-  { id: "progress", label: "Minha evolução", icon: Trophy },
+const navigationGroups = [
+  {
+    label: "SEU ESPAÇO",
+    items: [
+      { id: "today", label: "Visão geral", icon: House },
+      { id: "routine", label: "Minha rotina", icon: Sun },
+      { id: "progress", label: "Minha evolução", icon: Trophy },
+    ],
+  },
+  {
+    label: "MÓDULOS",
+    items: [
+      { id: "training", label: "Meus treinos", icon: Dumbbell },
+      { id: "plan", label: "Plano alimentar", icon: Utensils },
+      { id: "groceries", label: "Lista de compras", icon: ShoppingBasket },
+    ],
+  },
 ] as const;
 const titles: Record<Page, string> = {
+  training: "Meus treinos",
   today: "Visão geral",
   plan: "Plano alimentar",
   groceries: "Lista de compras",
@@ -71,10 +89,7 @@ const titles: Record<Page, string> = {
 function Logo() {
   return (
     <span className="logo">
-      <span className="logo-mark">
-        b<span />
-      </span>
-      base<span className="logo-dot">.</span>
+      Numa<span className="logo-dot">.</span>
     </span>
   );
 }
@@ -96,14 +111,14 @@ function MealImage({
 }) {
   return (
     <div className={`meal-image ${className}`}>
-      <img
+      {meal.image ? <img
         src={meal.image}
         alt={meal.description}
         loading="lazy"
         onError={(e) => {
           e.currentTarget.style.display = "none";
         }}
-      />
+      /> : null}
       <Utensils className="image-fallback" size={32} />
     </div>
   );
@@ -316,22 +331,26 @@ export default function App() {
             <X />
           </button>
         </div>
-        <div className="workspace-label">SEU ESPAÇO, SEU RITMO</div>
         <nav aria-label="Navegação principal">
-          {navigation.map((item) => (
-            <button
-              key={item.id}
-              className={`nav-item ${page === item.id ? "active" : ""}`}
-              onClick={() => go(item.id)}
-            >
-              <item.icon size={19} />
-              <span>{item.label}</span>
-              {item.id === "groceries" ? (
-                <span className="nav-count">
-                  {profile.groceries.length - checked}
-                </span>
-              ) : null}
-            </button>
+          {navigationGroups.map((group) => (
+            <div className="nav-group" key={group.label}>
+              <h2 className="nav-group-label">{group.label}</h2>
+              {group.items.map((item) => (
+                <button
+                  key={item.id}
+                  className={`nav-item ${page === item.id ? "active" : ""}`}
+                  onClick={() => go(item.id)}
+                >
+                  <item.icon size={18} strokeWidth={1.8} />
+                  <span>{item.label}</span>
+                  {item.id === "groceries" ? (
+                    <span className="nav-count">
+                      {profile.groceries.length - checked}
+                    </span>
+                  ) : null}
+                </button>
+              ))}
+            </div>
           ))}
         </nav>
         <div className="sidebar-bottom">
@@ -339,7 +358,7 @@ export default function App() {
             <div className="membership-title">
               <ShieldCheck size={22} />
               <span>
-                Uma boa base.
+                Uma boa jornada.
                 <br />
                 <strong>Um dia de cada vez.</strong>
               </span>
@@ -405,6 +424,7 @@ export default function App() {
           </div>
         </header>
         <main id="main-content" key={page}>
+          {page === "training" ? <Suspense fallback={<p>Carregando treinos…</p>}><Training key={profile.id} profile={profile} update={update} notify={notify} /></Suspense> : null}
           {page === "today" ? (
             <Dashboard
               profile={profile}
@@ -444,7 +464,7 @@ export default function App() {
           ) : null}
           <footer className="page-footer">
             <span>
-              base. <span>Menos controle. Mais constância.</span>
+              Numa <span>Jornadas que avançam juntas.</span>
             </span>
             <span>Dados ilustrativos · personalize com seu plano</span>
           </footer>
@@ -491,28 +511,29 @@ function Login({
         <div>
           <div className="login-symbol">
             <Leaf size={44} />
-            <span>+ um bom hábito</span>
+            <span>Jornadas que avançam juntas</span>
           </div>
           <h1>
             Comer bem.
             <br />
             Viver leve.
             <br />
-            <em>Ter uma base.</em>
+            <em>Seguir junto.</em>
           </h1>
           <p>
-            Seu plano, suas compras e pequenas conquistas.
+            Jornadas para compartilhar com quem importa.
             <br />
-            Tudo no seu ritmo.
+            Cada pessoa no seu ritmo.
           </p>
+          <img className="login-mascot" src="/images/numa-gatinha-v01.png" width="140" height="192" alt="" />
         </div>
         <span>FEITO PARA A VIDA REAL.</span>
       </section>
       <section className="login-panel">
         <div className="login-form">
           <Tag>Seu próximo bom hábito começa aqui</Tag>
-          <h2>Bem-vindo à sua base.</h2>
-          <p className="muted">Um espaço para cuidar de você, sem complicar.</p>
+          <h2>Entre na sua jornada.</h2>
+          <p className="muted">Cuide do seu ritmo, junto de quem importa.</p>
           {supabase ? (
             <form onSubmit={submit}>
               <label>
@@ -574,7 +595,7 @@ function Login({
                         <strong>{p.name}</strong>
                         <small>
                           {i
-                            ? "Uma base só sua"
+                            ? "Sua jornada começa aqui"
                             : "Seu planejamento começa aqui"}
                         </small>
                       </span>
@@ -741,7 +762,7 @@ function Dashboard({
     month: "long",
   });
   const hour = new Date().getHours();
-  const ordered = [...profile.meals].sort((a, b) =>
+  const ordered = profile.meals.map(meal => mealForDay(meal, todayIndex())).sort((a, b) =>
     a.time.localeCompare(b.time),
   );
   const next =
@@ -771,7 +792,7 @@ function Dashboard({
               <p>
                 Comer bem não precisa ocupar a sua cabeça.
                 <br />
-                Deixe o planejamento com a sua base.
+                Deixe o planejamento mais leve.
               </p>
               <Button variant="yellow" onClick={() => go("plan")}>
                 Ver meu plano
@@ -779,9 +800,7 @@ function Dashboard({
               </Button>
             </div>
             <div className="banner-emblem" aria-hidden="true">
-              <div className="emblem-square">
-                <Leaf size={69} strokeWidth={1.15} />
-              </div>
+              <img src="/images/numa-gatinha-v01.png" width="196" height="270" alt="" />
               <span>
                 UM DIA
                 <br />
@@ -850,14 +869,14 @@ function Dashboard({
                 </div>
                 <h3>{next.name}</h3>
                 <p>{next.description}</p>
-                <div className="meal-nutrition">
+                {next.nutritionMissing ? <p>Calorias e macros ainda não disponíveis.</p> : <div className="meal-nutrition">
                   <span>
                     <strong>{next.kcal}</strong> kcal previstas
                   </span>
                   <span>
                     <strong>{next.protein} g</strong> proteína
                   </span>
-                </div>
+                </div>}
                 <button className="text-link" onClick={() => go("plan")}>
                   Ver porções e substituições
                   <ArrowRight size={15} />
@@ -873,7 +892,7 @@ function Dashboard({
           <section className="nutrition-summary">
             <div>
               <h3>O equilíbrio do seu plano</h3>
-              <span>Totais planejados · não é um registro de consumo</span>
+              <span>{profile.meals.some(m => m.nutritionMissing) ? "Calorias e macros ainda não disponíveis" : "Totais planejados · não é um registro de consumo"}</span>
             </div>
             <div className="macro-grid">
               {[
@@ -886,8 +905,7 @@ function Dashboard({
                   <span className={`macro-dot ${m.color}`} />
                   <span>{m.label}</span>
                   <strong>
-                    {m.value}
-                    <small> g</small>
+                    {profile.meals.some(meal => meal.nutritionMissing) ? "—" : <>{m.value}<small> g</small></>}
                   </strong>
                 </div>
               ))}
@@ -902,7 +920,7 @@ function Dashboard({
               </span>
               <div>
                 <span>SUA JORNADA</span>
-                <h3>Construindo a base</h3>
+                <h3>Construindo sua jornada</h3>
               </div>
               <Tag tone="yellow">NÍV. {level}</Tag>
             </div>
@@ -1013,14 +1031,24 @@ function Plan({
   const [planName, setPlanName] = useState(profile.planName);
   const [planNote, setPlanNote] = useState(profile.planNote);
   const [query, setQuery] = useState("");
-  const t = totals(profile.meals);
+  const [selectedDay, setSelectedDay] = useState(todayIndex);
+  const displayedMeals = profile.meals.map(meal => mealForDay(meal, selectedDay));
+  const hasRotation = profile.meals.some(meal => meal.weeklyOptions?.length);
+  const isRoutine = profile.planSource === "livia-home-office-v1";
+  const t = totals(displayedMeals);
   function saveMeal(e: FormEvent) {
     e.preventDefault();
     if (!edit) return;
     update((p) => ({
       ...p,
       meals: (p.meals.some((m) => m.id === edit.id)
-        ? p.meals.map((m) => (m.id === edit.id ? edit : m))
+        ? p.meals.map((m) => {
+            if (m.id !== edit.id) return m;
+            if (!m.weeklyOptions) return edit;
+            const {weeklyOptions: _rotation, ...option} = edit;
+            const weeklyOptions = m.weeklyOptions.map((old, day) => day === selectedDay ? option : old);
+            return {...m, ...weeklyOptions[0], weeklyOptions};
+          })
         : [...p.meals, edit]
       ).sort((a, b) => a.time.localeCompare(b.time)),
     }));
@@ -1052,9 +1080,22 @@ function Plan({
           <h2>{profile.planName}</h2>
           <p>{profile.planNote}</p>
         </div>
-        <Tag>Plano demonstrativo</Tag>
+        <Tag>{isRoutine ? "Rascunho adaptado" : profile.planSource ? "Prescrição cadastrada" : "Plano demonstrativo"}</Tag>
       </div>
-      <div className="plan-totals">
+      {profile.foodPreferences ? <details className="plan-guidance"><summary>Preferências e restrições</summary>
+        <p>Evitar: {profile.foodPreferences.avoid.join(', ')}. {profile.foodPreferences.occasional.join(', ')} apenas eventualmente e após conferir o rótulo.</p>
+        <p>Pratos favoritos: {profile.foodPreferences.favorites.join('; ')}.</p>
+      </details> : null}
+      {profile.planGuidance ? <details className="plan-guidance"><summary>{isRoutine ? "Preparo, treino e dias de enjoo" : "Orientações da nutricionista"}</summary><ul>{profile.planGuidance.map(text => <li key={text}>{text}</li>)}</ul>
+        {profile.planSources ? <ul>{profile.planSources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>)}</ul> : null}
+      </details> : null}
+      {profile.archivedPlan ? <details className="plan-guidance"><summary>Consultar plano anterior: {profile.archivedPlan.name}</summary>
+        <p>{profile.archivedPlan.note}</p>
+        {profile.archivedPlan.meals.map(meal => <div key={meal.id}><h4>{meal.time} · {meal.name}</h4><p>{meal.description}</p><p>{meal.alternative}</p></div>)}
+        <ul>{profile.archivedPlan.guidance?.map(text => <li key={text}>{text}</li>)}</ul>
+      </details> : null}
+      {hasRotation ? <div className="week-selector"><label>Dia do cardápio <select value={selectedDay} onChange={event => {setSelectedDay(Number(event.target.value)); setDetail(null);}}>{weekDayNames.map((name, index) => <option key={name} value={index}>{name}</option>)}</select></label><p>Refeições do dia selecionado. Compras começam pela segunda-feira e seguem o ciclo semanal.</p></div> : null}
+      {profile.meals.some(m => m.nutritionMissing) ? <p className="info-note">Calorias, proteínas, carboidratos, gorduras e fibras: ainda não disponíveis.</p> : <div className="plan-totals">
         <span>
           <strong>{t.kcal.toLocaleString("pt-BR")}</strong> kcal planejadas /
           dia
@@ -1071,7 +1112,7 @@ function Plan({
         <span>
           Fibras <strong>{t.fiber} g</strong>
         </span>
-      </div>
+      </div>}
       <div className="list-toolbar">
         <Button
           variant="outline"
@@ -1110,7 +1151,7 @@ function Plan({
         </div>
       </div>
       <div className="meal-list">
-        {profile.meals
+        {displayedMeals
           .filter((m) =>
             (m.name + " " + m.description)
               .toLowerCase()
@@ -1128,7 +1169,7 @@ function Plan({
                   <h3>{m.name}</h3>
                   <p>{m.description}</p>
                   <span>
-                    {m.kcal} kcal · {m.protein} g proteína · {m.fiber} g fibras
+                    {m.nutritionMissing ? "Calorias e macros ainda não disponíveis" : `${m.kcal} kcal · ${m.protein} g proteína · ${m.fiber} g fibras`}
                   </span>
                 </div>
                 <div className="plan-meal-actions">
@@ -1154,7 +1195,7 @@ function Plan({
               {detail === m.id ? (
                 <div className="meal-detail">
                   <div>
-                    <h4>Porções do plano</h4>
+                    <h4>{isRoutine ? "Ingredientes para organizar as compras" : "Porções do plano"}</h4>
                     <ul>
                       {m.ingredients.map((g, i) => (
                         <li key={i}>
@@ -1166,19 +1207,18 @@ function Plan({
                   <div className="substitution">
                     <h4>
                       <RefreshCw size={16} />
-                      Uma opção de troca
+                      {isRoutine ? "Preparo e alternativas" : profile.planSource ? "Opções da prescrição" : "Uma opção de troca"}
                     </h4>
                     <p>{m.alternative}</p>
                     <small>
-                      Exemplo de alternativa; não implica equivalência
-                      nutricional.
+                      {isRoutine ? "Sugestão culinária; não representa equivalência da prescrição." : profile.planSource ? "Opções transcritas do documento de 20/01/2026." : "Exemplo de alternativa; não implica equivalência nutricional."}
                     </small>
                   </div>
                 </div>
               ) : null}
             </article>
           ))}
-        {!profile.meals.some((m) =>
+        {!displayedMeals.some((m) =>
           (m.name + " " + m.description)
             .toLowerCase()
             .includes(query.toLowerCase()),
@@ -1192,9 +1232,7 @@ function Plan({
       <div className="info-note">
         <ShieldCheck size={18} />
         <p>
-          Este é um plano de exemplo. Edite as refeições com as porções da sua
-          prescrição. Suplementos e trocas devem seguir as orientações do seu
-          profissional.
+          {isRoutine ? "Rascunho adaptado à rotina relatada. Quantidades ilustrativas para compras, a revisar com a nutricionista. Fotos ilustrativas. A lista segue as opções de cada dia, a partir de segunda-feira; alternativas não são somadas." : profile.planSource ? "Plano transcrito da prescrição de Elen Menezes, de 20/01/2026. As opções e porções seguem o documento; fotos são ilustrativas. Compras incluem apenas a opção principal de cada refeição." : "Este é um plano de exemplo. Edite as refeições com as porções da sua prescrição. Suplementos e trocas devem seguir as orientações do seu profissional."}
         </p>
       </div>
       {edit ? (
@@ -1202,7 +1240,7 @@ function Plan({
           open
           onOpenChange={() => setEdit(null)}
           title={`Editar ${edit.name}`}
-          description="Atualize com as informações do seu plano alimentar."
+          description={hasRotation ? `Edite a refeição de ${weekDayNames[selectedDay].toLocaleLowerCase("pt-BR")}. Depois, gere a lista de compras novamente.` : "Atualize com as informações do seu plano alimentar."}
         >
           <form onSubmit={saveMeal} className="edit-form">
             <div className="form-row">
@@ -1234,6 +1272,7 @@ function Plan({
                 }
               />
             </label>
+            <label><input type="checkbox" checked={!!edit.nutritionMissing} onChange={e => setEdit({ ...edit, nutritionMissing: e.target.checked })} /> Valores nutricionais não informados</label>
             <div className="form-row numeric-row">
               {(["kcal", "protein", "carbs", "fat", "fiber"] as const).map(
                 (field, i) => (
@@ -1252,7 +1291,8 @@ function Plan({
                       min="0"
                       max="10000"
                       required
-                      value={edit[field]}
+                      disabled={edit.nutritionMissing}
+                      value={edit.nutritionMissing ? "" : edit[field]}
                       onChange={(e) =>
                         setEdit({ ...edit, [field]: Number(e.target.value) })
                       }
@@ -1308,7 +1348,7 @@ function Plan({
                       })
                     }
                   >
-                    {["g", "ml", "un", "fatia"].map((u) => (
+                    {[...new Set([g.unit, "g", "ml", "un", "fatia"])].map((u) => (
                       <option key={u}>{u}</option>
                     ))}
                   </select>
@@ -1475,8 +1515,8 @@ function Groceries({
   );
   function exportList() {
     download(
-      "base-lista-de-compras.txt",
-      `BASE — Lista de compras\n${profile.name} · ${profile.plannedDays} dias\n\n` +
+      "numa-lista-de-compras.txt",
+      `NUMA — Lista de compras\n${profile.name} · ${profile.plannedDays} dias\n\n` +
         categories
           .map(
             (c) =>
@@ -1516,7 +1556,7 @@ function Groceries({
           </span>
           <div>
             <h2>Do plano para o carrinho.</h2>
-            <p>Some os ingredientes das refeições pela quantidade de dias.</p>
+            <p>{profile.meals.some(meal => meal.weeklyOptions?.length) ? "Some os dias do cardápio, começando na segunda-feira. O ciclo repete após domingo; 7 dias cobrem a semana inteira." : "Some os ingredientes das refeições pela quantidade de dias."}</p>
           </div>
         </div>
         <div className="generator-controls">
@@ -1796,7 +1836,7 @@ function Routine({
   return (
     <>
       <Heading
-        title="Pequenos hábitos. Uma boa base."
+        title="Pequenos hábitos. Uma boa jornada."
         subtitle="Água, suplementos prescritos e o seu momento de cuidado."
       >
         <Button
@@ -1873,7 +1913,7 @@ function Routine({
             <ShieldCheck size={19} />
             <p>
               Os suplementos exibidos são exemplos. Cadastre as orientações da
-              sua prescrição; o Base não recomenda vitaminas nem calcula
+              sua prescrição; a Numa não recomenda vitaminas nem calcula
               dosagens.
             </p>
           </div>
@@ -1891,7 +1931,7 @@ function Routine({
                 notify(
                   day.checkin
                     ? "Check-in desfeito."
-                    : "Mais um dia cuidando da sua base. +40 XP!",
+                    : "Mais um dia cuidando da sua jornada. +40 XP!",
                 );
               }}
               variant={day.checkin ? "outline" : "default"}
@@ -2056,7 +2096,7 @@ function Progress({
           <ShieldCheck size={50} />
         </span>
         <div>
-          <h2>Nível {level} · Construindo a base</h2>
+          <h2>Nível {level} · Construindo sua jornada</h2>
           <p>{xp} XP conquistados com pequenos hábitos reais.</p>
           <div className="progress-track">
             <span style={{ width: `${(xp % 200) / 2}%` }} />
@@ -2173,7 +2213,7 @@ function Settings({
     <>
       <Heading
         title="Seu espaço, do seu jeito."
-        subtitle="Ajuste sua base para a sua rotina."
+        subtitle="Ajuste sua jornada para a sua rotina."
       />
       <div className="settings-layout">
         <section className="panel settings-panel">
@@ -2235,7 +2275,7 @@ function Settings({
               variant="outline"
               onClick={() => {
                 download(
-                  `base-${profile.id}.json`,
+                  `numa-${profile.id}.json`,
                   JSON.stringify(profile, null, 2),
                   "application/json",
                 );

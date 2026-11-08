@@ -7,7 +7,7 @@ from collections import OrderedDict
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
-app = FastAPI(title="Base Nutrition API", version="0.1.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
+app = FastAPI(title="Numa API", version="0.1.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 class Ingredient(BaseModel):
     name: str = Field(min_length=1, max_length=120)
@@ -21,7 +21,7 @@ class ShoppingRequest(BaseModel):
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "service": "base", "version": "0.1.0"}
+    return {"status": "ok", "service": "numa", "version": "0.1.0"}
 
 @app.post("/api/shopping-list")
 def shopping_list(body: ShoppingRequest):

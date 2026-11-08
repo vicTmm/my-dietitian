@@ -1,0 +1,1898 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#FFC400" />
+<meta name="description" content="Hub da identidade Vinky v01 para o app de nutrição: personagem, assinatura, paleta, tipografia, forma, presença e implementação." />
+<title>Vinky — identidade v01</title>
+<style>
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 200 800;
+    font-display: swap;
+    src: url('fonts/bricolage-grotesque-latin-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 200 800;
+    font-display: swap;
+    src: url('fonts/bricolage-grotesque-latin-ext-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  :root {
+    --solar: #FFC400;
+    --charcoal: #171916;
+    --paper: #F8F7F2;
+    --cream: #FFF1D6;
+    --success: #216348;
+    --ink: var(--charcoal);
+    --muted: #5C5E55;
+    --line: #E4E1D6;
+    --line-strong: #CFCBBE;
+    --rail: 264px;
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --text: 'Inter', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 24px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--ink); color: var(--solar); }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb {
+    background: #C6C2B4;
+    border: 3px solid var(--paper);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--charcoal); }
+
+  a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+
+  :focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  img { max-width: 100%; }
+
+  h1, h2, h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  p { margin: 0; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .skip {
+    position: absolute;
+    left: 16px; top: -80px;
+    z-index: 100;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: top .2s ease;
+  }
+  .skip:focus { top: 16px; }
+
+  /* ---------- rail ---------- */
+
+  .rail {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--rail);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding: 28px 24px 28px;
+    background: var(--paper);
+    border-right: 1px solid var(--line);
+    z-index: 20;
+  }
+
+  .brand { text-decoration: none; color: var(--ink); display: block; }
+  .brand img {
+    display: block;
+    width: 176px;
+    height: auto;
+    border-radius: 8px;
+  }
+  .brand-sub {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.045em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav { display: flex; flex-direction: column; gap: 2px; }
+
+  .nav a {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 8px;
+    align-items: baseline;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background .18s ease, color .18s ease;
+  }
+  .nav a .idx {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+  }
+  .nav a:hover { background: var(--cream); color: var(--ink); }
+  .nav a[aria-current="true"] {
+    background: var(--cream);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .nav a[aria-current="true"] .idx { color: var(--ink); }
+
+  .rail-foot {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .rail-foot .rail-divider { height: 1px; background: var(--line); }
+  .download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background .18s ease;
+  }
+  .download:hover { background: #2E312C; }
+  .download svg { flex: none; }
+
+  /* ---------- mobile bar ---------- */
+
+  .mobilebar { display: none; }
+
+  /* ---------- layout ---------- */
+
+  .main { margin-left: var(--rail); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: clamp(20px, 4.5vw, 64px); }
+
+  /* ---------- hero ---------- */
+
+  .hero-band { background: var(--solar); }
+
+  .hero { padding-block: clamp(36px, 5vw, 60px); }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: clamp(32px, 4vw, 52px);
+    align-items: center;
+  }
+
+  .brand-lockup {
+    display: block;
+    width: 208px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 26px;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 4.9vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    max-width: 14ch;
+  }
+
+  .lede {
+    margin-top: 22px;
+    max-width: 46ch;
+    font-size: clamp(1rem, 1.35vw, 1.1rem);
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 32px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid rgba(23, 25, 22, 0.24);
+  }
+  .meta dt {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: #484A42;
+  }
+  .meta dd {
+    margin: 3px 0 0;
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .plate {
+    position: relative;
+    background: var(--cream);
+    border: 1px solid rgba(23, 25, 22, 0.14);
+    border-radius: 12px;
+    padding: 24px 24px 10px;
+    overflow: hidden;
+    animation: plate-rise .8s cubic-bezier(.16, 1, .3, 1) both .08s;
+  }
+  .plate img {
+    display: block;
+    width: 100%;
+    height: clamp(340px, 48vh, 480px);
+    object-fit: contain;
+    object-position: bottom center;
+  }
+
+  @keyframes plate-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .plate-caption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px 18px;
+    padding-top: 12px;
+    font-size: 12px;
+    color: #3F4038;
+    font-variant-numeric: tabular-nums;
+  }
+  .plate-caption strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- chapters ---------- */
+
+  .chapter {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: clamp(20px, 3.5vw, 44px);
+    padding-block: clamp(56px, 7vw, 88px);
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .chapter-num {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+    color: #8B8C81;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    padding-top: 6px;
+  }
+
+  .chapter-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px 32px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+
+  h2 {
+    font-size: clamp(2.1rem, 4.2vw, 3.3rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+
+  .chapter-note {
+    max-width: 32ch;
+    font-size: 13px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .lead {
+    max-width: 62ch;
+    font-size: clamp(1.08rem, 1.55vw, 1.3rem);
+    line-height: 1.5;
+    letter-spacing: -0.008em;
+  }
+
+  .body {
+    max-width: 68ch;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .body + .body { margin-top: 14px; }
+
+  .small { font-size: 13px; color: var(--muted); }
+
+  /* ---------- character ---------- */
+
+  .poses {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 34px;
+  }
+  .poses figure { margin: 0; }
+  .pose {
+    aspect-ratio: 1 / 1.14;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 14px 14px 0;
+    overflow: hidden;
+  }
+  .pose img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+  .poses figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .poses figcaption strong { color: var(--ink); font-weight: 600; }
+
+  .motion {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    flex-wrap: wrap;
+    margin-top: 38px;
+    padding: 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+  }
+  .sprite {
+    flex: none;
+    width: min(232px, 58vw);
+    aspect-ratio: 1;
+    border-radius: 10px;
+    background-color: var(--cream);
+    background-image: url('motions/vinky-aceno-sprites-v02.webp');
+    background-repeat: no-repeat;
+    background-size: 400% 200%;
+    background-position: 0% 0%;
+  }
+  .motion-copy { min-width: 210px; flex: 1; }
+  .motion-copy h3 { font-size: 18px; letter-spacing: -0.015em; }
+  .motion-copy p { margin-top: 4px; font-size: 13px; color: var(--muted); max-width: 36ch; }
+  .motion-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .motion-frame { margin-top: 10px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    background: var(--solar);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .18s ease;
+  }
+  .btn:hover { background: #FFD23D; }
+  .btn--ghost { background: transparent; }
+  .btn--ghost:hover { background: var(--cream); }
+
+  .subsection {
+    margin-top: 46px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .subsection > h3 { font-size: 20px; letter-spacing: -0.02em; }
+  .subsection > p { margin-top: 6px; font-size: 14px; line-height: 1.6; max-width: 68ch; }
+
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .logo-grid figure { margin: 0; }
+  .logo-box {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .logo-box img { display: block; width: 100%; height: auto; }
+  .logo-grid figcaption {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .logo-grid figcaption strong { color: var(--ink); font-weight: 600; }
+
+  .keep-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 44px;
+    margin-top: 42px;
+  }
+  .keep-grid h3 {
+    font-size: 18px;
+    letter-spacing: -0.015em;
+    margin-bottom: 4px;
+  }
+  .keep-grid ul { list-style: none; margin: 0; padding: 0; }
+  .keep-grid li {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 11px 0;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .keep-grid svg { margin-top: 3px; }
+
+  /* ---------- palette ---------- */
+
+  .palette { margin-top: 34px; border-top: 1px solid var(--line-strong); }
+
+  .swatch {
+    display: grid;
+    grid-template-columns: 64px minmax(130px, 0.85fr) minmax(120px, 0.7fr) minmax(0, 1.55fr);
+    gap: 12px 20px;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .chip {
+    width: 54px;
+    height: 54px;
+    padding: 0;
+    border: 1px solid rgba(23, 25, 22, 0.18);
+    border-radius: 12px;
+    background: var(--c);
+    cursor: pointer;
+    transition: transform .18s ease, border-color .18s ease;
+  }
+  .chip:hover { transform: translateY(-2px); border-color: var(--ink); }
+  .chip:active { transform: translateY(0); }
+
+  .swatch-name {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.2;
+  }
+  .swatch-hex {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .copy {
+    color: var(--ink);
+    opacity: 0;
+    transition: opacity .16s ease;
+  }
+  .swatch:hover .copy,
+  .swatch:focus-within .copy { opacity: 1; }
+  .copy.is-done { opacity: 1; font-weight: 600; }
+
+  .swatch-role { font-size: 13px; color: var(--muted); }
+  .swatch-use { font-size: 14px; line-height: 1.5; }
+  .swatch-use code {
+    font-family: var(--text);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+
+  .rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 44px;
+    margin-top: 34px;
+  }
+  .rule { border-top: 1px solid var(--line-strong); padding-top: 12px; }
+  .rule-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    margin-bottom: 5px;
+  }
+  .rule p:last-child { font-size: 14px; line-height: 1.55; color: var(--ink); max-width: 46ch; }
+
+  .contrast {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .contrast span {
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .contrast .on-solar { background: var(--solar); color: var(--ink); }
+  .contrast .on-charcoal { background: var(--charcoal); color: var(--paper); }
+  .contrast .on-cream { background: var(--cream); color: var(--ink); border: 1px solid var(--line-strong); }
+  .contrast .on-success { background: var(--success); color: var(--paper); }
+  .contrast-note { margin-top: 10px; font-size: 12px; color: var(--muted); max-width: 66ch; }
+
+  /* ---------- type ---------- */
+
+  .specimen {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 28px 44px;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  .aa-card {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 26px 26px 20px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: var(--cream);
+  }
+  .aa {
+    font-family: var(--display);
+    font-size: clamp(6rem, 11vw, 9.5rem);
+    font-weight: var(--w, 700);
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+    transition: font-weight .12s linear;
+  }
+  .aa-meta { text-align: right; white-space: nowrap; }
+  .aa-meta .ki {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .aa-meta .kv {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+  }
+
+  .weight-control { display: flex; flex-direction: column; gap: 22px; }
+  .weight-control label { font-size: 13px; font-weight: 600; }
+  .weight-control .hint { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 28px;
+    background: transparent;
+    cursor: pointer;
+    margin: 0;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--line-strong);
+    border-radius: 2px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: -9px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 3px solid var(--paper);
+  }
+  input[type="range"]::-moz-range-track { height: 4px; background: var(--line-strong); border-radius: 2px; }
+  input[type="range"]::-moz-range-thumb {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--ink); border: 3px solid var(--paper);
+  }
+
+  .scale { margin-top: 28px; border-top: 1px solid var(--line-strong); }
+  .scale-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 64px;
+    gap: 16px;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .scale-sample {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: min(var(--s), 12vw);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .scale-row.is-body .scale-sample {
+    font-family: var(--text);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .scale-tag {
+    text-align: right;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .typeface {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 10px 32px;
+    padding-top: 18px;
+    margin-top: 28px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .typeface h3 { font-size: 20px; letter-spacing: -0.02em; }
+  .typeface .role { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .alphabet {
+    font-size: 19px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    word-break: break-word;
+  }
+  .alphabet--display { font-family: var(--display); font-weight: 600; }
+  .alphabet--text { font-family: var(--text); font-weight: 400; }
+  .numerals {
+    font-family: var(--text);
+    font-variant-numeric: tabular-nums lining-nums;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin-top: 8px;
+  }
+  .numerals span { color: var(--muted); font-size: 13px; font-weight: 400; letter-spacing: 0; margin-left: 10px; }
+
+  /* ---------- form ---------- */
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 40px 52px;
+    margin-top: 34px;
+  }
+
+  .block-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .ruler {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    border-bottom: 1px solid var(--line-strong);
+    height: 96px;
+  }
+  .ruler > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 7px;
+    height: 100%;
+  }
+  .ruler .bar {
+    flex: none;
+    width: 100%;
+    max-width: 34px;
+    background: var(--solar);
+    border: 1px solid rgba(23, 25, 22, 0.18);
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+  }
+  .ruler .bar-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    padding-bottom: 4px;
+  }
+  .ruler-note { margin-top: 12px; font-size: 13px; color: var(--muted); max-width: 46ch; }
+
+  .shapes { display: flex; flex-direction: column; gap: 16px; }
+  .shape-row { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+  .demo-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 8px;
+    background: var(--solar);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .demo-surface {
+    flex: 1;
+    min-width: 170px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: var(--cream);
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+  .demo-surface strong { font-family: var(--display); font-size: 15px; display: block; }
+  .shape-cap { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .shape-item { display: flex; flex-direction: column; gap: 7px; }
+
+  .form-rules {
+    margin-top: 34px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-strong);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 32px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .form-rules strong { color: var(--ink); font-weight: 600; display: block; }
+
+  /* ---------- presence ---------- */
+
+  .presence { width: 100%; border-collapse: collapse; margin-top: 26px; }
+  .presence th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    padding: 0 16px 9px 0;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .presence td {
+    padding: 15px 16px 15px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  .presence tr:hover td { background: rgba(255, 196, 0, 0.07); }
+  .presence td:first-child {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.012em;
+    white-space: nowrap;
+  }
+  .presence td:nth-child(2) { color: var(--ink); }
+  .presence .voice {
+    color: var(--ink);
+    border-left: 3px solid var(--solar);
+    padding-left: 12px;
+  }
+
+  .presence-notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 44px;
+    margin-top: 32px;
+  }
+  .presence-notes p { font-size: 14px; line-height: 1.6; max-width: 48ch; }
+  .presence-notes strong { font-weight: 600; }
+  .no-list { font-weight: 600; }
+
+  /* ---------- implementation ---------- */
+
+  .steps { list-style: none; margin: 30px 0 0; padding: 0; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    padding: 15px 0;
+    border-top: 1px solid var(--line);
+  }
+  .steps .n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    background: var(--solar);
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .steps p { font-size: 14px; line-height: 1.6; max-width: 74ch; }
+  .steps code, .pending code {
+    font-family: var(--text);
+    font-size: 12px;
+    background: var(--cream);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .pending {
+    margin-top: 42px;
+    padding: 24px;
+    border: 1px solid #E7D4A6;
+    border-radius: 12px;
+    background: var(--cream);
+  }
+  .pending h3 { font-size: 20px; letter-spacing: -0.02em; }
+  .pending > p { font-size: 14px; line-height: 1.6; margin-top: 6px; max-width: 62ch; }
+  .pending ul {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+  .pending li {
+    display: grid;
+    grid-template-columns: 8px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    font-size: 14px;
+    padding: 6px 0;
+  }
+  .pending li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    margin-top: 7px;
+    border-radius: 1px;
+    background: var(--ink);
+  }
+
+  .files { margin-top: 34px; border-top: 1px solid var(--line-strong); }
+  .file {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .file:hover { color: var(--success); }
+  .file .fname { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+  .file .fname span:first-child { font-weight: 500; }
+  .file .fmeta { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .file svg { flex: none; color: var(--ink); }
+  .file:hover svg { color: var(--success); }
+
+  .endcard {
+    margin-top: 36px;
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--charcoal);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 32px;
+    flex-wrap: wrap;
+  }
+  .endcard img { display: block; width: min(240px, 60vw); height: auto; border-radius: 8px; }
+  .endcard p {
+    font-size: 13px;
+    color: var(--paper);
+    max-width: 32ch;
+  }
+
+  /* ---------- footer ---------- */
+
+  .foot {
+    border-top: 1px solid var(--line-strong);
+    padding-block: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px 32px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .foot strong {
+    font-family: var(--display);
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 1080px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: clamp(2.7rem, 5.4vw, 4.2rem); max-width: 16ch; }
+    .hero-plate { max-width: 520px; margin-inline: auto; }
+    .chapter { grid-template-columns: 40px minmax(0, 1fr); }
+    .chapter-num { font-size: 22px; }
+    .typeface { grid-template-columns: 180px minmax(0, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    :root { --rail: 0px; }
+    .rail { display: none; }
+
+    .mobilebar {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(248, 247, 242, 0.98);
+      border-bottom: 1px solid var(--line);
+    }
+    .mobilebar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px clamp(20px, 4.5vw, 64px) 4px;
+    }
+    .mobilebar .brand img { width: 120px; }
+    .mobilebar .ver { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .mobilebar nav {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 4px clamp(20px, 4.5vw, 64px) 10px;
+      scrollbar-width: none;
+    }
+    .mobilebar nav::-webkit-scrollbar { display: none; }
+    .mobilebar nav a {
+      flex: none;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .mobilebar nav a[aria-current="true"] {
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    html { scroll-padding-top: 128px; }
+    .main { margin-left: 0; }
+    .hero { padding-top: 28px; }
+    .hero-grid { grid-template-columns: 1fr; }
+    h1 { max-width: 14ch; }
+    .plate { max-width: 520px; }
+    .plate img { height: clamp(320px, 50vh, 450px); }
+    .chapter { grid-template-columns: 1fr; gap: 14px; }
+    .chapter-num {
+      font-size: 13px;
+      color: var(--muted);
+      padding-top: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .chapter-note { text-align: left; }
+    .chapter-head { margin-bottom: 20px; }
+    .poses { gap: 12px; }
+    .keep-grid, .rules, .presence-notes { grid-template-columns: 1fr; gap: 26px; }
+    .specimen, .form-grid { grid-template-columns: 1fr; }
+    .aa-card { max-width: 520px; }
+    .typeface { grid-template-columns: 1fr; gap: 8px; }
+    .presence thead { display: none; }
+    .presence, .presence tbody, .presence tr, .presence td { display: block; width: 100%; }
+    .presence tr {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .presence tr:hover td { background: transparent; }
+    .presence td {
+      border: 0;
+      padding: 2px 0;
+      white-space: normal;
+    }
+    .presence td::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--text);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 1px;
+    }
+    .presence td:first-child { font-size: 16px; margin-bottom: 4px; }
+    .presence td:first-child::before { display: none; }
+    .presence .voice { border-left: 0; padding-left: 0; }
+    .pending ul { grid-template-columns: 1fr; }
+    .form-rules { grid-template-columns: 1fr; gap: 12px; }
+  }
+
+  @media (max-width: 620px) {
+    .brand-lockup { width: 176px; margin-bottom: 22px; }
+    .swatch {
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 4px 14px;
+      padding: 12px 0;
+      align-items: start;
+    }
+    .chip { width: 42px; height: 42px; border-radius: 10px; grid-row: span 3; }
+    .swatch-use { grid-column: 2; margin-top: 4px; }
+    .swatch-role { grid-column: 2; }
+    .swatch-name { font-size: 15px; }
+    .poses { grid-template-columns: 1fr; }
+    .logo-grid { grid-template-columns: 1fr; }
+    .motion { gap: 18px; }
+    .sprite { width: min(210px, 64vw); }
+    .scale-row { grid-template-columns: minmax(0, 1fr) 52px; gap: 10px; }
+    .meta { grid-template-columns: 1fr 1fr; }
+    .meta div:last-child { grid-column: span 2; }
+    .aa-card { padding: 20px; }
+    .aa { font-size: clamp(4.6rem, 22vw, 7rem); }
+    .form-grid { gap: 32px; }
+    .foot { flex-direction: column; }
+    .file .fmeta { display: none; }
+    .endcard { padding: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  @media print {
+    .rail, .mobilebar, .skip { display: none; }
+    .main { margin: 0; }
+    body { background: #fff; }
+    .chapter { break-inside: avoid; }
+    .plate { animation: none; }
+    a { color: inherit; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<aside class="rail" aria-label="Navegação do manual">
+  <a class="brand" href="#topo">
+    <img src="logos/vinky-escura-v01.svg" width="2640" height="1300" alt="Vinky" />
+    <span class="brand-sub">identidade · v01</span>
+  </a>
+
+  <nav class="nav" aria-label="Seções">
+    <a href="#gata" data-nav="gata"><span class="idx">01</span><span>A gata</span></a>
+    <a href="#paleta" data-nav="paleta"><span class="idx">02</span><span>Paleta</span></a>
+    <a href="#tipografia" data-nav="tipografia"><span class="idx">03</span><span>Tipografia</span></a>
+    <a href="#forma" data-nav="forma"><span class="idx">04</span><span>Forma e espaço</span></a>
+    <a href="#presenca" data-nav="presenca"><span class="idx">05</span><span>Presença</span></a>
+    <a href="#implementacao" data-nav="implementacao"><span class="idx">06</span><span>Implementação</span></a>
+  </nav>
+
+  <div class="rail-foot">
+    <div class="rail-divider"></div>
+    <span>Direção definida<br />manual em revisão · 06 nov 2026</span>
+    <a class="download" href="vinky-brandkit-v01.zip" download>
+      <span>Baixar brandkit</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 2.5v8" /><path d="M4.8 7.5 8 10.7l3.2-3.2" /><path d="M3 13.2h10" />
+      </svg>
+    </a>
+  </div>
+</aside>
+
+<header class="mobilebar">
+  <div class="mobilebar-top">
+    <a class="brand" href="#topo">
+      <img src="logos/vinky-escura-v01.svg" width="2640" height="1300" alt="Vinky" />
+    </a>
+    <span class="ver">v01 · em revisão</span>
+  </div>
+  <nav aria-label="Seções">
+    <a href="#gata" data-nav="gata">A gata</a>
+    <a href="#paleta" data-nav="paleta">Paleta</a>
+    <a href="#tipografia" data-nav="tipografia">Tipografia</a>
+    <a href="#forma" data-nav="forma">Forma</a>
+    <a href="#presenca" data-nav="presenca">Presença</a>
+    <a href="#implementacao" data-nav="implementacao">Implementação</a>
+  </nav>
+</header>
+
+<main class="main" id="conteudo">
+  <section class="hero-band" aria-labelledby="titulo">
+    <div class="wrap" id="topo">
+      <div class="hero">
+        <div class="hero-grid">
+          <div>
+            <img class="brand-lockup" src="logos/vinky-principal-v01.svg" width="2640" height="1300" alt="Assinatura Vinky principal, carvão sobre solar" />
+            <h1 id="titulo">Rotina alimentar com leveza e método.</h1>
+            <p class="lede">
+              Vinky organiza refeições, compras e hábitos com uma voz calorosa e direta.
+              Sem transformar comida em culpa, sem tratar adulto como criança.
+            </p>
+            <dl class="meta">
+              <div>
+                <dt>Versão</dt>
+                <dd>v01</dd>
+              </div>
+              <div>
+                <dt>Status</dt>
+                <dd>Em revisão</dd>
+              </div>
+              <div>
+                <dt>Personagem</dt>
+                <dd>Vinky</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="hero-plate">
+            <div class="plate">
+              <img
+                src="mascote/vinky-apresentando-v01.webp"
+                width="800"
+                height="876"
+                alt="Vinky, gata amarela e preta de óculos, em pose de boas-vindas"
+              />
+            </div>
+            <div class="plate-caption">
+              <span><strong>Prancha 01</strong> — boas-vindas</span>
+              <span>1199 × 1312 px · PNG transparente</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="chapter" id="gata" aria-labelledby="gata-titulo">
+      <div class="chapter-num" aria-hidden="true">01</div>
+      <div>
+        <div class="chapter-head">
+          <h2 id="gata-titulo">A gata</h2>
+          <p class="chapter-note">Personagem, poses e assinatura da marca.</p>
+        </div>
+
+        <p class="lead">
+          Vinky é uma gata amarela e preta, de óculos, expressão confiante e gesto
+          acolhedor. Ela acompanha a rotina — não vigia, não cobra e não infantiliza.
+        </p>
+
+        <div class="poses">
+          <figure>
+            <div class="pose">
+              <img src="mascote/vinky-apresentando-v01.webp" width="800" height="876" alt="Vinky em pose de boas-vindas, com a pata estendida" />
+            </div>
+            <figcaption><strong>Boas-vindas</strong><span>apresentando</span></figcaption>
+          </figure>
+          <figure>
+            <div class="pose">
+              <img src="mascote/vinky-cool-estudo-01.webp" width="800" height="1098" alt="Vinky de óculos escuros, com postura confiante" />
+            </div>
+            <figcaption><strong>Atitude</strong><span>cool</span></figcaption>
+          </figure>
+          <figure>
+            <div class="pose">
+              <img src="mascote/vinky-despedida-v01.webp" width="800" height="1100" alt="Vinky acenando de despedida" />
+            </div>
+            <figcaption><strong>Despedida</strong><span>despedida</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="motion">
+          <div class="sprite" id="sprite" role="img" aria-label="Vinky acena com a pata, pisca e movimenta a cauda em oito quadros"></div>
+          <div class="motion-copy">
+            <h3>Aceno em movimento</h3>
+            <p>Oito quadros desenhados. Movimento opcional, curto e sempre interrompível.</p>
+            <div class="motion-controls">
+              <button class="btn" id="play" type="button" aria-pressed="false">Reproduzir aceno</button>
+              <button class="btn btn--ghost" id="step" type="button">Próximo quadro</button>
+            </div>
+            <p class="motion-frame" id="frameLabel">Quadro 1 de 8</p>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3>Assinatura</h3>
+          <p>
+            Três versões oficiais. Manter a proporção, reservar ao redor pelo menos a altura
+            do “v” e usar largura mínima de 96 px. Não recriar, inclinar, aplicar contorno
+            ou trocar cores individualmente.
+          </p>
+          <div class="logo-grid">
+            <figure>
+              <div class="logo-box">
+                <img src="logos/vinky-principal-v01.svg" width="2640" height="1300" alt="Assinatura Vinky principal, carvão sobre solar" />
+              </div>
+              <figcaption><strong>Principal</strong><br />carvão sobre solar</figcaption>
+            </figure>
+            <figure>
+              <div class="logo-box">
+                <img src="logos/vinky-escura-v01.svg" width="2640" height="1300" alt="Assinatura Vinky escura, carvão sobre papel" />
+              </div>
+              <figcaption><strong>Escura</strong><br />carvão sobre papel</figcaption>
+            </figure>
+            <figure>
+              <div class="logo-box">
+                <img src="logos/vinky-negativa-v01.svg" width="2640" height="1300" alt="Assinatura Vinky negativa, papel sobre carvão" />
+              </div>
+              <figcaption><strong>Negativa</strong><br />papel sobre carvão</figcaption>
+            </figure>
+          </div>
+          <p class="small" style="margin-top:14px">
+            Abaixo de 96 px o logo perde leitura. Para 16–32 px ainda não existe símbolo
+            dedicado — não reduza o corpo inteiro da personagem para representar a marca.
+          </p>
+        </div>
+
+        <div class="keep-grid">
+          <div>
+            <h3>Manter</h3>
+            <ul>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#171916" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 8.4 3 3.1 6.6-7" /></svg>
+                <span>Silhueta felina inteira, com patas e cauda legíveis.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#171916" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 8.4 3 3.1 6.6-7" /></svg>
+                <span>Óculos como assinatura da direção atual.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#171916" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 8.4 3 3.1 6.6-7" /></svg>
+                <span>Contorno carvão e volumes simplificados.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#171916" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 8.4 3 3.1 6.6-7" /></svg>
+                <span>Expressão confiante e acolhedora, sem infantilização.</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3>Evitar</h3>
+            <ul>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#B8433C" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" /></svg>
+                <span>Roupa ou acessório novo por módulo.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#B8433C" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" /></svg>
+                <span>Pose de vigilância, julgamento ou cobrança.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#B8433C" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" /></svg>
+                <span>Recortar o corpo inteiro para favicon ou avatar pequeno.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#B8433C" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" /></svg>
+                <span>Fundo carvão atrás da silhueta sem superfície clara de apoio.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="paleta" aria-labelledby="paleta-titulo">
+      <div class="chapter-num" aria-hidden="true">02</div>
+      <div>
+        <div class="chapter-head">
+          <h2 id="paleta-titulo">Paleta</h2>
+          <p class="chapter-note">Cinco papéis. Nenhuma cor entra só para preencher espaço.</p>
+        </div>
+
+        <p class="body">
+          Solar chama atenção; carvão sustenta leitura; papel e creme dão respiro; verde
+          confirma — sempre com texto ou ícone. Clique em uma amostra para copiar o hexadecimal.
+        </p>
+
+        <div class="palette">
+          <div class="swatch">
+            <button class="chip" style="--c:#FFC400" data-hex="#FFC400" aria-label="Copiar #FFC400, Solar"></button>
+            <div>
+              <div class="swatch-name">Solar</div>
+              <div class="swatch-hex">#FFC400 <span class="copy" aria-hidden="true">copiar</span></div>
+            </div>
+            <div class="swatch-role">Destaque e ação</div>
+            <div class="swatch-use">Capa e ação principal, sempre com texto carvão. Nunca texto branco.</div>
+          </div>
+
+          <div class="swatch">
+            <button class="chip" style="--c:#171916" data-hex="#171916" aria-label="Copiar #171916, Carvão"></button>
+            <div>
+              <div class="swatch-name">Carvão</div>
+              <div class="swatch-hex">#171916 <span class="copy" aria-hidden="true">copiar</span></div>
+            </div>
+            <div class="swatch-role">Texto e assinatura</div>
+            <div class="swatch-use">Texto principal, contornos e superfícies escuras.</div>
+          </div>
+
+          <div class="swatch">
+            <button class="chip" style="--c:#F8F7F2" data-hex="#F8F7F2" aria-label="Copiar #F8F7F2, Papel"></button>
+            <div>
+              <div class="swatch-name">Papel</div>
+              <div class="swatch-hex">#F8F7F2 <span class="copy" aria-hidden="true">copiar</span></div>
+            </div>
+            <div class="swatch-role">Fundo principal</div>
+            <div class="swatch-use">Base da interface e texto sobre carvão.</div>
+          </div>
+
+          <div class="swatch">
+            <button class="chip" style="--c:#FFF1D6" data-hex="#FFF1D6" aria-label="Copiar #FFF1D6, Creme"></button>
+            <div>
+              <div class="swatch-name">Creme</div>
+              <div class="swatch-hex">#FFF1D6 <span class="copy" aria-hidden="true">copiar</span></div>
+            </div>
+            <div class="swatch-role">Apoio à personagem</div>
+            <div class="swatch-use">Superfícies atrás de Vinky; preserva patas e contorno pretos.</div>
+          </div>
+
+          <div class="swatch">
+            <button class="chip" style="--c:#216348" data-hex="#216348" aria-label="Copiar #216348, Sucesso"></button>
+            <div>
+              <div class="swatch-name">Sucesso</div>
+              <div class="swatch-hex">#216348 <span class="copy" aria-hidden="true">copiar</span></div>
+            </div>
+            <div class="swatch-role">Confirmação</div>
+            <div class="swatch-use">Confirmações e estados concluídos, sempre com texto ou ícone.</div>
+          </div>
+        </div>
+
+        <div class="rules">
+          <div class="rule">
+            <p class="rule-label">Texto sobre amarelo</p>
+            <p>Sempre carvão. Branco sobre solar reprova em contraste e não faz parte da identidade.</p>
+          </div>
+          <div class="rule">
+            <p class="rule-label">Amarelo não é sucesso</p>
+            <p>Solar destaca. A confirmação usa <code>#216348</code> com texto ou ícone — cor sozinha não comunica estado.</p>
+          </div>
+          <div class="rule">
+            <p class="rule-label">Sem sombras decorativas</p>
+            <p>Hierarquia vem de espaço, borda e contraste. Nada de elevação artificial para enfeitar cartão.</p>
+          </div>
+          <div class="rule">
+            <p class="rule-label">Um destaque por composição</p>
+            <p>Solar é acento, não fundo de tudo. Quando tudo grita, nada é lembrado.</p>
+          </div>
+        </div>
+
+        <div class="contrast" aria-label="Combinações de contraste aprovadas">
+          <span class="on-solar">Carvão + solar</span>
+          <span class="on-charcoal">Papel + carvão</span>
+          <span class="on-cream">Carvão + creme</span>
+          <span class="on-success">Papel + sucesso</span>
+        </div>
+        <p class="contrast-note">Combinações verificadas para texto. Contraste é requisito de implementação, não sugestão.</p>
+      </div>
+    </section>
+
+    <section class="chapter" id="tipografia" aria-labelledby="tipografia-titulo">
+      <div class="chapter-num" aria-hidden="true">03</div>
+      <div>
+        <div class="chapter-head">
+          <h2 id="tipografia-titulo">Tipografia</h2>
+          <p class="chapter-note">Bricolage Grotesque nos títulos; Inter nos controles, textos e dados.</p>
+        </div>
+
+        <p class="body">
+          Bricolage Grotesque 600–800 carrega a voz da marca. Inter 400–600 mantém leitura,
+          dados e controles. Texto corrido em 16 px/1,6; tracking nunca abaixo de -0,03em.
+        </p>
+
+        <div class="specimen">
+          <div class="aa-card">
+            <div class="aa" id="aa" style="--w:700">Aa</div>
+            <div class="aa-meta">
+              <div class="ki">PESO</div>
+              <div class="kv" id="weightValue">700</div>
+            </div>
+          </div>
+          <div class="weight-control">
+            <div>
+              <label for="weight">Peso do título</label>
+              <p class="hint">Faixa de uso da marca: 600–800. Arraste para comparar os extremos.</p>
+            </div>
+            <input type="range" id="weight" min="600" max="800" step="50" value="700"
+              aria-describedby="weightHint" aria-valuetext="700" />
+            <p class="hint" id="weightHint">Títulos: 600–800 · Texto: 400–600</p>
+          </div>
+        </div>
+
+        <div class="scale" aria-label="Escala tipográfica">
+          <div class="scale-row" style="--s:88px"><span class="scale-sample">Vinky</span><span class="scale-tag">88 px</span></div>
+          <div class="scale-row" style="--s:64px"><span class="scale-sample">Rotina</span><span class="scale-tag">64 px</span></div>
+          <div class="scale-row" style="--s:40px"><span class="scale-sample">Sua semana</span><span class="scale-tag">40 px</span></div>
+          <div class="scale-row" style="--s:28px"><span class="scale-sample">Planejamento</span><span class="scale-tag">28 px</span></div>
+          <div class="scale-row" style="--s:20px"><span class="scale-sample">Lista de compras</span><span class="scale-tag">20 px</span></div>
+          <div class="scale-row is-body" style="--s:16px"><span class="scale-sample">Texto corrido 16 px / 1,6</span><span class="scale-tag">16 px</span></div>
+          <div class="scale-row is-body" style="--s:14px"><span class="scale-sample">Legendas, metadados e apoio de leitura.</span><span class="scale-tag">14 px</span></div>
+        </div>
+
+        <div class="typeface">
+          <div>
+            <h3>Bricolage Grotesque</h3>
+            <p class="role">Títulos e assinatura · 600–800</p>
+          </div>
+          <div>
+            <p class="alphabet alphabet--display">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />abcdefghijklmnopqrstuvwxyz 0123456789</p>
+          </div>
+        </div>
+
+        <div class="typeface">
+          <div>
+            <h3>Inter</h3>
+            <p class="role">Texto, dados e controles · 400–600</p>
+          </div>
+          <div>
+            <p class="alphabet alphabet--text">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />abcdefghijklmnopqrstuvwxyz 0123456789</p>
+            <p class="numerals">1.240 kcal <span>numerais tabulares</span></p>
+          </div>
+        </div>
+
+        <p class="small" style="margin-top:22px; max-width:66ch">
+          A amostra da escala reduz os tamanhos em telas estreitas para não gerar rolagem
+          lateral; os valores à direita são os tokens reais. Fontes variáveis locais via
+          Fontsource, com licenças OFL.
+        </p>
+      </div>
+    </section>
+
+    <section class="chapter" id="forma" aria-labelledby="forma-titulo">
+      <div class="chapter-num" aria-hidden="true">04</div>
+      <div>
+        <div class="chapter-head">
+          <h2 id="forma-titulo">Forma e espaço</h2>
+          <p class="chapter-note">Uma escala curta, repetida com disciplina.</p>
+        </div>
+
+        <p class="body">
+          Espaçamento em múltiplos de 8. Superfícies de apoio com 12 px; controles com
+          8–10 px; alvos de pelo menos 44 px. Um destaque por composição e nenhuma sombra
+          decorativa.
+        </p>
+
+        <div class="form-grid">
+          <div>
+            <p class="block-label">Escala de espaçamento — px</p>
+            <div class="ruler" aria-label="Escala de espaçamento: 8, 16, 24, 32, 40, 48 e 64 pixels">
+              <div><div class="bar" style="height:8px"></div><span class="bar-label">8</span></div>
+              <div><div class="bar" style="height:16px"></div><span class="bar-label">16</span></div>
+              <div><div class="bar" style="height:24px"></div><span class="bar-label">24</span></div>
+              <div><div class="bar" style="height:32px"></div><span class="bar-label">32</span></div>
+              <div><div class="bar" style="height:40px"></div><span class="bar-label">40</span></div>
+              <div><div class="bar" style="height:48px"></div><span class="bar-label">48</span></div>
+              <div><div class="bar" style="height:64px"></div><span class="bar-label">64</span></div>
+            </div>
+            <p class="ruler-note">8, 16, 24, 32, 40, 48 e 64 px. Sem valores intermediários por conveniência.</p>
+          </div>
+
+          <div>
+            <p class="block-label">Controles e superfícies</p>
+            <div class="shapes">
+              <div class="shape-row">
+                <div class="shape-item">
+                  <span class="demo-control">Ação principal</span>
+                  <span class="shape-cap">44 px mín. · raio 8 px</span>
+                </div>
+              </div>
+              <div class="shape-row">
+                <div class="shape-item" style="flex:1">
+                  <div class="demo-surface">
+                    <strong>Superfície</strong>
+                    Conteúdo em repouso, raio 12 px.
+                  </div>
+                  <span class="shape-cap">Raio 12 px · borda, nunca sombra</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-rules">
+          <div><strong>Um destaque</strong>Uma ação principal por etapa.</div>
+          <div><strong>Foco visível</strong>Teclado sempre encontra o próximo alvo.</div>
+          <div><strong>Movimento</strong>Curto, opcional e reduzido quando o sistema pede.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="presenca" aria-labelledby="presenca-titulo">
+      <div class="chapter-num" aria-hidden="true">05</div>
+      <div>
+        <div class="chapter-head">
+          <h2 id="presenca-titulo">Presença</h2>
+          <p class="chapter-note">A Vinky acolhe, explica e confirma — sem julgar.</p>
+        </div>
+
+        <p class="body">
+          A personagem conecta os módulos. Ela aparece para receber, apresentar um resultado
+          e confirmar um avanço; nunca para vigiar, cobrar ou medir valor pessoal. Em tabelas,
+          formulários e registros, os dados vêm primeiro.
+        </p>
+
+        <table class="presence">
+          <thead>
+            <tr>
+              <th scope="col">Módulo</th>
+              <th scope="col">Papel da Vinky</th>
+              <th scope="col">Exemplo de voz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Planejamento alimentar</td>
+              <td data-label="Papel">Acolher no primeiro planejamento</td>
+              <td class="voice" data-label="Voz">“Vamos montar sua semana com o que você já tem?”</td>
+            </tr>
+            <tr>
+              <td>Lista de compras</td>
+              <td data-label="Papel">Apresentar a lista consolidada</td>
+              <td class="voice" data-label="Voz">“Sua lista está pronta para conferir.”</td>
+            </tr>
+            <tr>
+              <td>Registro de refeições</td>
+              <td data-label="Papel">Registrar sem transformar em nota</td>
+              <td class="voice" data-label="Voz">“Anotado. O próximo registro pode ser do jeito que couber no seu dia.”</td>
+            </tr>
+            <tr>
+              <td>Hábitos e metas</td>
+              <td data-label="Papel">Incentivar continuidade sem culpa</td>
+              <td class="voice" data-label="Voz">“Um dia fora do plano não apaga o que você já construiu.”</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="presence-notes">
+          <div class="rule">
+            <p class="rule-label">Onde aparece</p>
+            <p>Boas-vindas, estados vazios e confirmações. Em tabelas, lançamentos e formulários, os dados vêm primeiro.</p>
+          </div>
+          <div class="rule">
+            <p class="rule-label">O que não faz</p>
+            <p><span class="no-list">Nunca</span> usa vergonha, peso corporal como valor moral, punição por interromper uma sequência ou urgência artificial. Celebrações são breves e opcionais.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="implementacao" aria-labelledby="implementacao-titulo">
+      <div class="chapter-num" aria-hidden="true">06</div>
+      <div>
+        <div class="chapter-head">
+          <h2 id="implementacao-titulo">Implementação</h2>
+          <p class="chapter-note">Como a identidade entra no produto sem perder o original.</p>
+        </div>
+
+        <p class="body">
+          A identidade parte do brandkit Vinky v01. As regras visuais são preservadas;
+          voz e aplicações são adaptadas à rotina alimentar deste app.
+        </p>
+
+        <ol class="steps">
+          <li>
+            <span class="n" aria-hidden="true">1</span>
+            <p>Copiar os ativos para o diretório público da aplicação e preservar os originais como referência para novas poses.</p>
+          </li>
+          <li>
+            <span class="n" aria-hidden="true">2</span>
+            <p>Mapear <code>tokens.json</code> para as variáveis do sistema visual, mantendo os papéis de cada cor — não apenas os hexadecimais.</p>
+          </li>
+          <li>
+            <span class="n" aria-hidden="true">3</span>
+            <p>Aplicar Bricolage Grotesque 600–800 e Inter 400–600, com texto corrido em 16 px/1,6 e tracking nunca abaixo de -0,03em.</p>
+          </li>
+          <li>
+            <span class="n" aria-hidden="true">4</span>
+            <p>Renderizar a mascote inteira, sem distorção e com margem livre, sobre papel ou creme. Não recortar o corpo para avatar de 16–32 px.</p>
+          </li>
+          <li>
+            <span class="n" aria-hidden="true">5</span>
+            <p>Revisar contraste, foco, alvos de 44 px e estados reais no celular antes de migrar o app.</p>
+          </li>
+        </ol>
+
+        <div class="pending">
+          <h3>Em aberto</h3>
+          <p>Este hub é uma proposta. O aplicativo em <code>/</code> continua com a identidade Base até o manual ser validado.</p>
+          <ul>
+            <li>Validação final do manual</li>
+            <li>Confirmação do nome e disponibilidade de marca</li>
+            <li>Símbolo para favicon e avatar de 16–32 px</li>
+            <li>Versão monocromática e vetorial da mascote</li>
+            <li>Novas poses e estudos de movimento</li>
+            <li>Aplicação na interface do app</li>
+            <li>Revisão de contraste na implementação real</li>
+          </ul>
+        </div>
+
+        <div class="files">
+          <p class="block-label" style="margin-top:24px">Arquivos da marca</p>
+          <a class="file" href="MANUAL-VINKY.md">
+            <span class="fname"><span>MANUAL-VINKY.md</span><span class="fmeta">manual adaptado para nutrição</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="MANUAL-VINKY-ORIGEM.md">
+            <span class="fname"><span>MANUAL-VINKY-ORIGEM.md</span><span class="fmeta">brandkit de origem</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="tokens.json">
+            <span class="fname"><span>tokens.json</span><span class="fmeta">tokens em JSON</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="logos/vinky-principal-v01.svg">
+            <span class="fname"><span>vinky-principal-v01.svg</span><span class="fmeta">carvão sobre solar</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="logos/vinky-escura-v01.svg">
+            <span class="fname"><span>vinky-escura-v01.svg</span><span class="fmeta">carvão sobre papel</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="logos/vinky-negativa-v01.svg">
+            <span class="fname"><span>vinky-negativa-v01.svg</span><span class="fmeta">papel sobre carvão</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="mascote/vinky-apresentando-v01.png">
+            <span class="fname"><span>vinky-apresentando-v01.png</span><span class="fmeta">1199 × 1312</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="mascote/vinky-cool-estudo-01.png">
+            <span class="fname"><span>vinky-cool-estudo-01.png</span><span class="fmeta">1071 × 1469</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="mascote/vinky-despedida-v01.png">
+            <span class="fname"><span>vinky-despedida-v01.png</span><span class="fmeta">1070 × 1470</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="motions/vinky-aceno-sprites-v02.png">
+            <span class="fname"><span>vinky-aceno-sprites-v02.png</span><span class="fmeta">4 × 2 quadros</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5" /><path d="M6 4.5h5.5V10" /></svg>
+          </a>
+          <a class="file" href="vinky-brandkit-v01.zip" download>
+            <span class="fname"><span>vinky-brandkit-v01.zip</span><span class="fmeta">brandkit original</span></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v8" /><path d="M4.8 7.5 8 10.7l3.2-3.2" /><path d="M3 13.2h10" /></svg>
+          </a>
+        </div>
+
+        <div class="endcard">
+          <img src="logos/vinky-negativa-v01.svg" width="2640" height="1300" alt="Assinatura Vinky negativa, papel sobre carvão" />
+          <p>Comida de verdade. Rotina sem culpa. Uma marca para acompanhar, não para julgar.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span><strong>Vinky</strong> · identidade v01</span>
+      <span>Proposta de 06.11.2026 · direção definida · manual em revisão · app em Base</span>
+    </footer>
+  </div>
+</main>
+
+<p class="sr-only" role="status" aria-live="polite" id="status"></p>
+
+<script>
+  (function () {
+    var links = document.querySelectorAll('[data-nav]');
+    var sections = [];
+    links.forEach(function (link) {
+      var id = link.getAttribute('href').slice(1);
+      var section = document.getElementById(id);
+      if (section && sections.indexOf(section) === -1) sections.push(section);
+    });
+
+    function setActive(id) {
+      links.forEach(function (link) {
+        var on = link.getAttribute('href') === '#' + id;
+        if (on) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var visible = new Map();
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          visible.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+        });
+        var best = null, bestRatio = 0;
+        visible.forEach(function (ratio, id) {
+          if (ratio > bestRatio) { best = id; bestRatio = ratio; }
+        });
+        if (best) setActive(best);
+      }, { rootMargin: '-35% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] });
+      sections.forEach(function (section) { observer.observe(section); });
+    }
+
+    var range = document.getElementById('weight');
+    var aa = document.getElementById('aa');
+    var value = document.getElementById('weightValue');
+    if (range && aa) {
+      range.addEventListener('input', function () {
+        aa.style.setProperty('--w', range.value);
+        if (value) value.textContent = range.value;
+        range.setAttribute('aria-valuetext', range.value);
+      });
+    }
+
+    var sprite = document.getElementById('sprite');
+    var play = document.getElementById('play');
+    var step = document.getElementById('step');
+    var frameLabel = document.getElementById('frameLabel');
+    var frame = 0;
+    var timer = null;
+
+    function drawFrame() {
+      var col = frame % 4;
+      var row = Math.floor(frame / 4);
+      if (sprite) sprite.style.backgroundPosition = (col * 100 / 3) + '% ' + (row * 100) + '%';
+      if (frameLabel) frameLabel.textContent = 'Quadro ' + (frame + 1) + ' de 8';
+    }
+
+    function stopSprite() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+      if (play) {
+        play.textContent = 'Reproduzir aceno';
+        play.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    if (play) {
+      play.addEventListener('click', function () {
+        if (timer) { stopSprite(); return; }
+        play.textContent = 'Pausar aceno';
+        play.setAttribute('aria-pressed', 'true');
+        timer = window.setInterval(function () {
+          frame = (frame + 1) % 8;
+          drawFrame();
+        }, 240);
+      });
+    }
+
+    if (step) {
+      step.addEventListener('click', function () {
+        stopSprite();
+        frame = (frame + 1) % 8;
+        drawFrame();
+      });
+    }
+
+    drawFrame();
+
+    var status = document.getElementById('status');
+    document.querySelectorAll('.chip[data-hex]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var hex = chip.getAttribute('data-hex');
+        var copy = chip.parentElement.querySelector('.copy');
+        function done(ok) {
+          if (copy) {
+            copy.textContent = ok ? 'copiado' : 'copie manualmente';
+            copy.classList.add('is-done');
+            window.setTimeout(function () {
+              copy.textContent = 'copiar';
+              copy.classList.remove('is-done');
+            }, 1600);
+          }
+          if (status) status.textContent = ok ? hex + ' copiado' : 'Não foi possível copiar ' + hex;
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(hex).then(function () { done(true); }, function () { done(false); });
+        } else {
+          done(false);
+        }
+      });
+    });
+  })();
+</script>
+</body>
+</html>

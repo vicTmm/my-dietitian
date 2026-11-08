@@ -1,3 +1,6 @@
+import { routineSource, routineName, routineNote, routineGuidance, routineMeals, routineSources } from "./livia-routine";
+import { liviaMeals, liviaPlanName, liviaPlanNote, liviaGuidance, liviaFoodPreferences } from "./livia-plan";
+import type { TrainingData } from "../features/training/model";
 export type Ingredient = {
   name: string;
   quantity: number;
@@ -5,6 +8,8 @@ export type Ingredient = {
   category: string;
 };
 export type Meal = {
+  weeklyOptions?: Omit<Meal, "weeklyOptions">[];
+  nutritionMissing?: boolean;
   id: string;
   time: string;
   name: string;
@@ -33,6 +38,12 @@ export type Grocery = Ingredient & {
 };
 export type Day = { water: number; supplements: string[]; checkin: boolean };
 export type Profile = {
+  training?: TrainingData;
+  foodPreferences?: { avoid: string[]; occasional: string[]; favorites: string[] };
+  planSources?: {title: string; url: string}[];
+  archivedPlan?: {name: string; note: string; meals: Meal[]; guidance?: string[]};
+  planSource?: string;
+  planGuidance?: string[];
   id: string;
   name: string;
   email: string;
@@ -143,24 +154,22 @@ export const meals: Meal[] = [
     image: images.dinner,
   },
 ];
+export const weekDayNames = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+export const todayIndex = () => (new Date().getDay() + 6) % 7;
+export function mealForDay(meal: Meal, day: number): Meal {
+  const option = meal.weeklyOptions?.[day % meal.weeklyOptions.length];
+  return option ? {...meal, ...option, id: meal.id, weeklyOptions: meal.weeklyOptions} : meal;
+}
 export function generateGroceries(plan: Meal[], days: number): Grocery[] {
   const map = new Map<string, Grocery>();
-  for (const meal of plan)
-    for (const item of meal.ingredients) {
-      const key =
-        item.name.trim().toLocaleLowerCase("pt-BR") +
-        "|" +
-        item.unit.trim().toLocaleLowerCase("pt-BR");
-      const old = map.get(key);
-      if (old) old.quantity += item.quantity * days;
-      else
-        map.set(key, {
-          ...item,
-          quantity: item.quantity * days,
-          id: key,
-          checked: false,
-        });
-    }
+  for (let day = 0; day < days; day++)
+    for (const meal of plan)
+      for (const item of mealForDay(meal, day).ingredients) {
+        const key = item.name.trim().toLocaleLowerCase('pt-BR') + '|' + item.unit.trim().toLocaleLowerCase('pt-BR');
+        const old = map.get(key);
+        if (old) old.quantity += item.quantity;
+        else map.set(key, {...item, id: key, checked: false});
+      }
   return [...map.values()];
 }
 export function createProfile(
@@ -168,14 +177,17 @@ export function createProfile(
   name: string,
   email: string,
 ): Profile {
+  const isLivia = id === "julia";
+  const plan = isLivia ? routineMeals : meals;
   return {
+    ...(isLivia ? { planSource: routineSource, planGuidance: [...routineGuidance], planSources: structuredClone(routineSources), archivedPlan: {name: liviaPlanName, note: liviaPlanNote, meals: structuredClone(liviaMeals), guidance: [...liviaGuidance]}, foodPreferences: structuredClone(liviaFoodPreferences) } : {}),
     id,
     name,
     email,
     waterGoal: 2500,
     days: {},
-    meals: structuredClone(meals),
-    supplements: [
+    meals: structuredClone(plan),
+    supplements: isLivia ? [] : [
       {
         id: "s1",
         name: "Vitamina D",
@@ -191,11 +203,11 @@ export function createProfile(
         note: "Adicionar à vitamina do lanche.",
       },
     ],
-    groceries: generateGroceries(meals, 5),
-    planName: "Meu plano de base",
-    planNote:
+    groceries: generateGroceries(plan, isLivia ? 7 : 5),
+    planName: isLivia ? routineName : "Meu plano de base",
+    planNote: isLivia ? routineNote :
       "Plano demonstrativo. Substitua pelas orientações do seu nutricionista.",
-    plannedDays: 5,
+    plannedDays: isLivia ? 7 : 5,
     history: [],
   };
 }

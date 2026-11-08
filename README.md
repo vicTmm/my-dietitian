@@ -1,6 +1,6 @@
-# Base · seu ritmo, sua nutrição
+# Numa · jornadas que avançam juntas
 
-MVP de um hub nutricional para duas pessoas: planejamento e compras, sem exigir diário de consumo. Interface em português, React + TypeScript e backend Python FastAPI.
+Protótipo da Numa, uma plataforma de jornadas compartilhadas para casais e desafios conduzidos por criadores. O protótipo atual explora planejamento alimentar, hábitos e treinos. Interface em português, React + TypeScript e backend Python FastAPI.
 
 ## Rodar agora
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Abra http://localhost:5173 e escolha **Victor** ou **Júlia**. São perfis demonstrativos sem senha; as informações ficam isoladas por perfil no localStorage deste navegador. Começam com um plano de exemplo e sem registros de hábitos inventados.
+Abra http://localhost:5173 e escolha **Victor Hugo Araujo** ou **Lívia Sardenberg**. São perfis demonstrativos sem senha; as informações ficam isoladas por perfil no localStorage deste navegador. Começam com um plano de exemplo e sem registros de hábitos inventados.
 
 ## O que funciona
 

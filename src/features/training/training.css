@@ -1,0 +1,415 @@
+.training {
+  max-width: 1100px;
+}
+.training h1 {
+  font-size: 30px;
+  line-height: 1.25;
+}
+.training h2 {
+  margin: 24px 0 12px;
+  font-size: 22px;
+}
+.training h3 {
+  margin: 12px 0 8px;
+  font-size: 17px;
+}
+.training p {
+  color: var(--muted, #637083);
+  line-height: 1.6;
+  margin: 8px 0 16px;
+  max-width: 72ch;
+}
+.training-heading,
+.training-toolbar,
+.training-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.training-actions {
+  justify-content: flex-start;
+}
+.training-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #e5e9ef;
+  margin: 24px 0;
+  padding-bottom: 8px;
+}
+.training-tabs button {
+  padding: 12px 16px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  min-height: 44px;
+  border-radius: 8px;
+}
+.training-tabs button[aria-current] {
+  background: var(--navy, #102c59);
+  color: white;
+}
+.training-tabs button:hover:not([aria-current]) {
+  background: #edf1f8;
+}
+.training-empty {
+  padding: 32px 0;
+}
+.training-routine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid #e5e9ef;
+}
+.training-routine h3,
+.training-routine p {
+  overflow-wrap: anywhere;
+}
+.training-routine > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+.training-routine .training-actions {
+  flex-shrink: 0;
+}
+.training-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+  font-weight: 600;
+}
+.training input:not([type="checkbox"]) {
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #637083;
+  border-radius: 8px;
+  background: white;
+  color: #172a43;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.training input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--navy, #102c59);
+}
+.training :focus-visible {
+  outline: 3px solid #234f98;
+  outline-offset: 3px;
+}
+.training-days {
+  border: 0;
+  padding: 8px 0;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.training-days label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.training-editor {
+  border: 1px solid #e5e9ef;
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin: 24px 0;
+}
+.training-editor legend {
+  padding: 0 8px;
+  font-weight: 700;
+}
+.training-numbers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.training-exercise {
+  border-bottom: 1px solid #e5e9ef;
+  padding: 16px 0 24px;
+}
+.training-set,
+.training-set-head {
+  display: grid;
+  grid-template-columns: 48px minmax(70px, 180px) minmax(70px, 180px) 48px;
+  gap: 16px;
+  align-items: center;
+  padding: 8px 0;
+}
+.training-set-head {
+  font-size: 12px;
+  font-weight: 700;
+}
+.training-set input[type="checkbox"] {
+  justify-self: center;
+}
+.training-history {
+  border-bottom: 1px solid #e5e9ef;
+  padding: 20px 0;
+}
+.training-history summary {
+  cursor: pointer;
+  min-height: 44px;
+  overflow-wrap: anywhere;
+}
+.training-history summary span {
+  display: block;
+  color: var(--muted, #637083);
+  margin: 8px 0;
+}
+.training-history p {
+  overflow-wrap: anywhere;
+}
+.training-records {
+  list-style: none;
+  padding: 0;
+}
+.training-records li {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e9ef;
+  padding: 16px 0;
+  overflow-wrap: anywhere;
+}
+.training-records strong {
+  min-width: 0;
+}
+.training-records span {
+  font-variant-numeric: tabular-nums;
+}
+.training-rest {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.training-confirm {
+  padding: 16px;
+  background: #fbecef;
+  border-radius: 12px;
+  margin: 16px 0;
+}
+.training-confirm .button {
+  margin: 0 8px 8px 0;
+}
+.training-weight {
+  border-top: 1px solid #e5e9ef;
+  margin-top: 32px;
+  padding-top: 16px;
+}
+@media (max-width: 760px) {
+  .training-routine {
+    display: block;
+  }
+  .training-routine .training-actions {
+    margin-top: 16px;
+  }
+  .training-numbers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .training-set,
+  .training-set-head {
+    gap: 8px;
+    grid-template-columns: 36px minmax(60px, 1fr) minmax(60px, 1fr) 44px;
+  }
+  .training-editor {
+    padding: 12px;
+  }
+  .training-heading h1 {
+    font-size: 26px;
+  }
+}
+/* Expanded training tools follow the Numa paper, charcoal and solar palette. */
+.training select {
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+}
+.training-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.training-filters label,
+.set-options label,
+.training-schedule label,
+.history-editor > label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+.training-schedule {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+  padding: 16px 0;
+  border-block: 1px solid var(--line);
+}
+.training-tabs {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.training-tabs button {
+  flex-shrink: 0;
+}
+.catalog-list {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 0 24px;
+}
+.catalog-list button {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px 8px;
+  border-bottom: 1px solid var(--line);
+  min-height: 76px;
+}
+.catalog-list button:hover {
+  background: #fff2cf;
+}
+.catalog-list span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.exercise-detail {
+  padding: 24px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  margin: 24px 0;
+}
+.exercise-detail li {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+.exercise-photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.exercise-photos img {
+  width: min(240px, 100%);
+  height: 240px;
+  object-fit: contain;
+  background: white;
+  border-radius: 12px;
+}
+.set-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  padding: 8px 0 20px;
+  border-bottom: 1px dashed var(--line);
+  margin-bottom: 12px;
+}
+.set-options label {
+  width: 110px;
+}
+.set-options label:first-child {
+  width: 145px;
+}
+.set-options .button {
+  font-size: 12px;
+}
+.training-trend {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.training-trend svg {
+  width: 100%;
+  max-width: 720px;
+  display: block;
+  margin: 16px 0;
+}
+.training-trend summary {
+  cursor: pointer;
+  padding: 8px 0;
+}
+.muscle-map {
+  margin-top: 24px;
+}
+.muscle-map > div:not(.body-map-diagram) {
+  display: grid;
+  grid-template-columns: 120px 1fr 35px;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  font-size: 13px;
+}
+.muscle-map meter {
+  width: 100%;
+  accent-color: var(--emerald);
+}
+.body-map-diagram {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 24px 0;
+}
+.body-map-diagram figure {
+  margin: 0;
+  text-align: center;
+}
+.body-map-diagram svg {
+  width: 100%;
+  max-width: 170px;
+  height: 300px;
+}
+.history-editor {
+  margin: 24px 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: white;
+}
+.history-editor > label {
+  margin: 12px 0;
+}
+.training :focus-visible {
+  outline-color: var(--emerald);
+}
+@media (max-width: 760px) {
+  .exercise-detail,
+  .history-editor {
+    padding: 16px;
+  }
+  .training-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .training-tabs {
+    flex-wrap: nowrap;
+  }
+  .set-options label {
+    flex: 1 1 95px;
+  }
+  .training-heading {
+    align-items: flex-start;
+  }
+}

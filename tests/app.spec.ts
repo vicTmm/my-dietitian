@@ -2,8 +2,8 @@ import {test,expect} from '@playwright/test';
 test('complete personal planning journey and isolation',async({page},testInfo)=>{
 const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
 await page.goto('/');await expect(page.getByRole('heading',{name:'Bem-vindo à sua base.'})).toBeVisible();
-await page.getByRole('button',{name:/Victor Seu planejamento/}).click();
-await expect(page.getByRole('heading',{name:/Victor\./})).toBeVisible();
+await page.getByRole('button',{name:/Victor Hugo Araujo Seu planejamento/}).click();
+await expect(page.getByRole('heading',{name:/Victor Hugo Araujo\./})).toBeVisible();
 await page.locator('.featured-meal img').waitFor();await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));await page.waitForTimeout(350);await page.screenshot({path:`test-results/${testInfo.project.name}-dashboard.png`,fullPage:true});
 await page.getByRole('button',{name:'250 ml',exact:true}).click();
 await page.getByRole('button',{name:'Fazer check-in',exact:true}).click();
@@ -28,16 +28,16 @@ async function nav(label:string){const menu=page.getByRole('button',{name:'Abrir
 await nav('Minha rotina');await page.getByRole('button',{name:'Adicionar à rotina'}).click();await page.getByLabel('Nome',{exact:true}).fill('Meu mix');await page.getByLabel('Porção / orientação').fill('Conforme meu plano');await page.getByRole('button',{name:'Salvar hábito'}).click();await expect(page.getByRole('heading',{name:'Meu mix'})).toBeVisible();
 await page.getByRole('button',{name:'Marcar',exact:true}).last().click();await expect(page.getByRole('button',{name:'Feito',exact:true})).toHaveCount(1);
 await nav('Minha evolução');await expect(page.getByRole('heading',{name:'Progresso que respeita seu ritmo.'})).toBeVisible();await expect(page.getByText('Conquistado',{exact:true})).toHaveCount(1);
-await page.getByRole('button',{name:'Abrir meu perfil'}).click();await page.getByRole('button',{name:'Sair e trocar de perfil'}).click();await page.getByRole('button',{name:/Júlia Uma base/}).click();
+await page.getByRole('button',{name:'Abrir meu perfil'}).click();await page.getByRole('button',{name:'Sair e trocar de perfil'}).click();await page.getByRole('button',{name:/Lívia Sardenberg Uma base/}).click();
 await expect(page.getByRole('button',{name:'Fazer check-in',exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Check-in feito'})).toHaveCount(0);
-await page.getByRole('button',{name:'Ver meu plano'}).click();await expect(page.getByText('Iogurte natural, banana, aveia e chia',{exact:true})).toBeVisible();
+await page.getByRole('button',{name:'Ver meu plano'}).click();await expect(page.getByRole('heading',{name:'Lívia · rotina prática e variada'})).toBeVisible();
 expect(errors).toEqual([]);
 });
 
 
 test('meal structure can be replaced and mobile menu supports keyboard', async ({page}, testInfo) => {
   await page.goto('/');
-  await page.getByRole('button', {name:/Victor Seu planejamento/}).click();
+  await page.getByRole('button', {name:/Victor Hugo Araujo Seu planejamento/}).click();
   if(testInfo.project.name === 'mobile') {
     await page.getByRole('button', {name:'Abrir navegação'}).click();
     await expect(page.getByRole('button', {name:'Fechar navegação'})).toBeFocused();
