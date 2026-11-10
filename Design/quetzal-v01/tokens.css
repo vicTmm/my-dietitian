@@ -1,0 +1,17 @@
+:root {
+  --color-paper: #F8F7F2;
+  --color-surface: #FFFFFF;
+  --color-ink: #142D25;
+  --color-primary: #145C43;
+  --color-on-primary: #FFFFFF;
+  --color-emerald: #19A775;
+  --color-lime: #B6D85A;
+  --color-coral: #D9574F;
+  --color-gold: #F2BE42;
+  --color-muted: #53665D;
+  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --radius-control: 10px;
+  --radius-surface: 16px;
+  --control-min-height: 44px;
+}
